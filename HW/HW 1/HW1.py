@@ -13,19 +13,23 @@ def df(x):
 def newton_raphson(x0, tol=1e-6):
     x_val = [x0]
     max_iter = 1000
+    iter_num = 0
     for i in range(max_iter):
-        if (np.abs(f(x_val[i])) < tol):
-            break
+        iter_num += 1
         x_new = x_val[i] - f(x_val[i])/df(x_val[i])
         x_val.append(x_new)
-    return x_val[-1], len(x_val), x_val
+        if (np.abs(f(x_val[i])) < tol):
+            break
+    return x_val[-1], iter_num, x_val
 
 # %%
 # Bisection method
 def bisection(left, right, tol=1e-6):
     mid = []
     max_iter = 1000
+    iter_num = 0
     for i in range(max_iter):
+        iter_num += 1
         mid.append((left + right)/2)
         if (f(mid[i]) > 0):
             left = mid[i]
@@ -33,19 +37,15 @@ def bisection(left, right, tol=1e-6):
             right = mid[i]
         if (np.abs(f(mid[i])) < tol):
             break
-    return mid[-1], len(mid), mid
+    return mid[-1], iter_num, mid
 
 # %%
 newton_x_final_val, newton_iter_num, newton_x_val = newton_raphson(-1.6)
-print(newton_iter_num)
-print(newton_x_val)
 A1 = newton_x_val
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A1.npy', newton_x_val)
 bisec_x_final_val, bisec_iter_num, bisec_x_val = bisection(-0.7, -0.4)
 A2 = bisec_x_val
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A2.npy', bisec_x_val)
 A3 = [newton_iter_num, bisec_iter_num]
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A3.npy', [newton_iter_num, bisec_iter_num])
+print(A1, A2, A3)
 
 # %%
 # Question 2
@@ -59,39 +59,30 @@ z = np.array([1, 2, -1])
 
 # a)
 A4 = A + B
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A4.npy', A4)
 
 # b)
 A5 = (3*x - 4*y)
 print(A5)
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A5.npy', A5)
 
 # c)
 A6 = (np.dot(A, x))
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A6.npy', A6)
 
 # d)
 A7 = (np.dot(B, (x-y)))
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A7.npy', A7)
 
 # e)
 A8 = (np.dot(D, x))
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A8.npy', A8)
 
 # f)
 A9 = (np.dot(D, y) + z)
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A9.npy', A9)
 
 # g)
 A10 = np.dot(A, B)
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A10.npy', A10)
 
 # h)
 A11 = np.dot(B, C)
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A11.npy', A11)
 
 # i)
 A12 = np.dot(C, D)
-np.save('/Users/chris/Desktop/AMATH 481/HW/HW 1/A12.npy', A12)
 
 
